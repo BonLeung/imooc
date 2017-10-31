@@ -1,45 +1,37 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { createStore, applyMiddleware, compose } from 'redux'
-import { Provider } from 'react-redux'
-import { BrowserRouter, Route, Link } from 'react-router-dom'
 import thunk from 'redux-thunk'
-import App from './App'
-import { counter } from './index.redux'
+import { Provider } from 'react-redux'
+import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom'
 
-const devTools = window.devToolsExtension ? window.devToolsExtension() : () => {}
-const store = createStore(counter, compose(
+import Login from './container/login/login'
+import Register from './container/register/register'
+import AuthRoute from './component/authroute/authroute'
+
+import reducers from './reducer'
+import './config'
+import './index.css'
+
+const store = createStore(reducers, compose(
   applyMiddleware(thunk),
-  devTools
+  window.devToolsExtension ? window.devToolsExtension() : f => f
 ))
 
-function ErYing(props) {
-  return <h1>二营</h1>
-}
-
-function QiBingLian(props) {
-  return <h1>骑兵连</h1>
+function Boss(props) {
+  return <h2>boss</h2>
 }
 
 ReactDOM.render(
   (<Provider store={store}>
     <BrowserRouter>
       <div>
-        <ul>
-          <li>
-            <Link to='/'>一营</Link>
-          </li>
-          <li>
-            <Link to='/erying'>二营</Link>
-          </li>
-          <li>
-            <Link to='/qibinglian'>骑兵连</Link>
-          </li>
-        </ul>
-        <Route path='/' exact component={App} />
-        <Route path='/erying' component={ErYing} />
-        <Route path='/qibinglian' component={QiBingLian} />
+        <AuthRoute></AuthRoute>
+        <Route path='boss' component={Boss}></Route>
+        <Route path='/login' component={Login}></Route>
+        <Route path='/register' component={Register}></Route>
       </div>
     </BrowserRouter>
   </Provider>),
-  document.getElementById('root'))
+  document.getElementById('root')
+)
