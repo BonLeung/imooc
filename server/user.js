@@ -11,9 +11,13 @@ const _filter = {
 }
 
 Router.get('/list', function(req, res) {
-  User.find({}, function(error, doc) {
+  const { type } = req.query
+  User.find({ type }, function(error, doc) {
     if (!error) {
-      return res.json(doc)
+      return res.json({
+        code: 0,
+        data: doc
+      })
     }
   })
 })
@@ -21,7 +25,7 @@ Router.get('/list', function(req, res) {
 Router.post('/update', function(req, res) {
   const { userid } = req.cookies
   if (!userid) {
-    return json.dumps({
+    return res.json({
       code: 1
     })
   }
