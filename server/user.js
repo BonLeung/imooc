@@ -12,7 +12,7 @@ const _filter = {
 
 Router.get('/list', function(req, res) {
   const { type } = req.query
-  User.find({ type }, function(error, doc) {
+  User.find({ type }, _filter, function(error, doc) {
     if (!error) {
       return res.json({
         code: 0,

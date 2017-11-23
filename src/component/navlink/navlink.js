@@ -1,12 +1,12 @@
 import React from 'react'
 import { TabBar } from 'antd-mobile'
 import { withRouter } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 @withRouter
 class NavLinkBar extends React.Component {
   render() {
     const navList = this.props.data.filter(item => !item.hide)
-    console.log(navList)
     const { pathname } = this.props.location
 
     return (

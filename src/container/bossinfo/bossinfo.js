@@ -35,12 +35,10 @@ class BossInfo extends React.Component {
         <InputItem onChange={value => this.handleChange('title', value)}>招聘职位</InputItem>
         <InputItem onChange={value => this.handleChange('company', value)}>公司名称</InputItem>
         <InputItem onChange={value => this.handleChange('money', value)}>职位薪资</InputItem>
-        <TextareaItem rows={3} autoHeight
-          title='职位要求'
+        <TextareaItem rows={3} autoHeight title='职位要求'
           onChange={value => this.handleChange('desc', value)}>
         </TextareaItem>
-        <Button
-          type='primary'
+        <Button type='primary'
           onClick={() => this.props.update(this.state)}>
           保存
         </Button>

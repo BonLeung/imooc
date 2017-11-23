@@ -4,17 +4,11 @@ import { Switch, Route } from 'react-router-dom'
 import { NavBar } from 'antd-mobile'
 import NavLinkBar from '../navlink/navlink'
 import Boss from '../boss/boss'
-
-function Genius() {
-  return <h1>牛人首页</h1>
-}
+import Genius from '../genius/genius'
+import User from '../../component/user/user'
 
 function Msg() {
   return <h1>消息列表</h1>
-}
-
-function User() {
-  return <h1>个人中心页</h1>
 }
 
 @connect(
@@ -35,7 +29,7 @@ class Dashboard extends React.Component {
       }, {
         path: '/genius',
         text: 'BOSS',
-        icon: 'job',
+        icon: 'job', 
         title: 'BOSS列表',
         component: Genius,
         hide: user.type === 'boss'
@@ -59,7 +53,7 @@ class Dashboard extends React.Component {
         <div style={{ marginTop: 45 }}>
           <Switch>
             {navList.map(item => (
-              <Route key={item.path} path={item.patn} component={item.component}></Route>
+              <Route key={item.path} path={item.path} component={item.component}></Route>
             ))}
           </Switch>
         </div>
