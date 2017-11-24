@@ -4,28 +4,19 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { register } from '../../redux/user.redux'
 import Logo from '../../component/logo/logo'
+import imoocForm from '../../component/imooc-form/imooc-form'
 
 @connect(
   state => state.user,
   { register }
 )
+@imoocForm
 class Register extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      user: '',
-      pwd: '',
-      repeatpwd: '',
-      type: 'boss'
-    }
-  }
-  handleChange(key, val) {
-    this.setState({
-      [key]: val
-    })
-  }
   handleRegister() {
-    this.props.register(this.state)
+    this.props.register(this.props.state)
+  }
+  componentDidMount() {
+    this.props.handleChange('type', 'boss')
   }
   render() {
     const RadioItem = Radio.RadioItem
@@ -35,15 +26,15 @@ class Register extends React.Component {
         <Logo></Logo>
         <List>
           {this.props.msg ? <p className='error-msg'>{this.props.msg}</p> : ''}
-          <InputItem clear onChange={(value) => this.handleChange('user', value)}>用户名</InputItem>
-          <InputItem type='password' clear onChange={(value) => this.handleChange('pwd', value)}>密码</InputItem>
-          <InputItem type='password' clear onChange={(value) => this.handleChange('repeatpwd', value)}>确认密码</InputItem>
+          <InputItem clear onChange={(value) => this.props.handleChange('user', value)}>用户名</InputItem>
+          <InputItem type='password' clear onChange={(value) => this.props.handleChange('pwd', value)}>密码</InputItem>
+          <InputItem type='password' clear onChange={(value) => this.props.handleChange('repeatpwd', value)}>确认密码</InputItem>
           <WhiteSpace />
           <List renderHeader={() => '请选择你的类型'}>
-            <RadioItem checked={this.state.type === 'genius'} onChange={(value) => this.handleChange('type', 'genius')}>
+            <RadioItem checked={this.props.state.type === 'genius'} onChange={(value) => this.props.handleChange('type', 'genius')}>
               牛人
             </RadioItem>
-            <RadioItem checked={this.state.type === 'boss'} onChange={(value) => this.handleChange('type', 'boss')}>
+            <RadioItem checked={this.props.state.type === 'boss'} onChange={(value) => this.props.handleChange('type', 'boss')}>
               BOSS
             </RadioItem>
           </List>
