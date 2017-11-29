@@ -3,6 +3,7 @@ const util = require('utility')
 const Router = express.Router()
 const model = require('./model')
 const User = model.getModel('user')
+const Chat = model.getModel('chat')
 
 // 过滤不需要的字段
 const _filter = {
@@ -17,6 +18,18 @@ Router.get('/list', function(req, res) {
       return res.json({
         code: 0,
         data: doc
+      })
+    }
+  })
+})
+
+Router.get('/getmsglist', function(req, res) {
+  const user = req.cookies.userid
+  Chat.find({'$or': [{from: user, to: user}]}, function(error, doc) {
+    if (!error) {
+      return res.json({
+        code: 0,
+        msgs: doc
       })
     }
   })
