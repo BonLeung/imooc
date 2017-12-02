@@ -26,10 +26,11 @@ export function chat(state = initState, action) {
         users: action.payload.users
       }
     case MSG_RECV:
+      const unread = action.payload.userid === action.payload.msg.from ? state.unread : state.unread + 1 
       return {
         ...state,
-        chatmsg: [...state.chatmsg, action.payload],
-        unread: ++state.unread
+        chatmsg: [...state.chatmsg, action.payload.msg],
+        unread: unread
       }
     // case MSG_READ:
     default:
@@ -44,17 +45,17 @@ function msgList(msgs, users, userid) {
   }
 }
 
-function msgRecv(msg) {
+function msgRecv(msg, userid) {
   return {
     type: MSG_RECV,
-    payload: msg
+    payload: {msg, userid}
   }
 }
 
 export function recvMsg() {
-  return dispatch => {
+  return (dispatch, getState) => {
     socket.on('recvmsg', data => {
-      dispatch(msgRecv(data))
+      dispatch(msgRecv(data, getState().user._id))
     })
   }
 }
