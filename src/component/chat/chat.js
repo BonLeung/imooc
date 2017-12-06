@@ -1,11 +1,8 @@
 import React from 'react'
 import { List, InputItem, NavBar, Icon, Grid } from 'antd-mobile'
-import io from 'socket.io-client'
 import { connect } from 'react-redux'
 import { getMsgList, sendMsg, recvMsg } from '../../redux/chat.redux'
 import { getChatId } from '../../util/util';
-
-const socket = io('ws://localhost:9093')
 
 @connect(
   state => state,

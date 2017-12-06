@@ -24,8 +24,6 @@ class Msg extends React.Component {
       const b_last = this.getLast(b).create_time
       return b_last - a_last
     })
-    console.log(chatList)
-
 
     return (
       <div>
